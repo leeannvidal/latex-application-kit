@@ -1,0 +1,56 @@
+% ====================================================================
+%  Research statement
+% ====================================================================
+%  Reads the same application form as the cover letter. Two things
+%  change per application:
+%    * the "Prepared for ..." line under the title (position, employer)
+%    * \individualizedresearchexpansion: when filled, Future Directions
+%      says "Four strands" and adds it as item 4; when empty, it says
+%      "Three strands" and the list stops at 3.
+%  Everything else is your generic statement, written once.
+%
+%  make research APP=example-uni
+%  (In an editor: change the \providecommand default and use XeLaTeX.)
+% ====================================================================
+\documentclass[11pt]{article}
+
+\providecommand{\letterfile}{example-uni}
+
+\input{../shared/header.tex}
+\input{../applications/\letterfile}
+\input{../shared/macros.tex}
+
+\hypersetup{pdftitle={Research Statement, \applicantfirst\ \applicantlast}}
+\pagestyle{plain}
+
+\begin{document}
+\makeletterhead
+\doctitle{Research Statement}
+\preparedfor
+
+% --------------------------------------------------------------------
+% Replace the placeholder text in each section with your own. Each
+% section opens with one example sentence, then lorem ipsum.
+% --------------------------------------------------------------------
+
+\section{Overview}
+My research asks why secrets always get out, and why the people responsible are always so surprised. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+\section{Current Work}
+\textbf{Dissertation.} My dissertation built a catalogue of every known leak from Cold War Berlin, sorted by who should have noticed first. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\textbf{Ongoing projects.} Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.
+
+\section{Future Directions}
+The next phase of my research moves from explaining past leaks to predicting the next one. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. This agenda has \ifempty{\individualizedresearchexpansion}{three}{\draftcolor{four}} parts:
+\begin{enumerate}
+  \item \textbf{Item 1.} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
+  \item \textbf{Item 2.} Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+  \item \textbf{Item 3.} Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
+  \ifempty{\individualizedresearchexpansion}{}{\item \draftcolor{\individualizedresearchexpansion}}
+\end{enumerate}
+
+\section{Why It Matters}
+Most intelligence failures are not failures of intelligence; they are failures of attention. Duis aute irure dolor\ifempty{\uni}{}{ at \theshortname} in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\end{document}

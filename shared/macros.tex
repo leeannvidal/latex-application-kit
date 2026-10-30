@@ -1,0 +1,96 @@
+% macros.tex
+% ==================================================
+% Helpers shared by every document.
+% Load AFTER the application form, because these read its fields.
+% ==================================================
+
+%==================================================
+% Draft mode
+%   `make ... DRAFT=1` defines \draftmode. In draft mode every piece
+%   of text that came from the application form is printed in color2,
+%   so you can proofread exactly what was tailored, and a watermark
+%   names the form (and mode) on every page.
+%==================================================
+\ifdefined\draftmode
+  \newcommand{\draftcolor}[1]{{\color{color2}#1}}
+  \usepackage{draftwatermark}
+  \DraftwatermarkOptions{
+    text  = {\sffamily DRAFT \textperiodcentered\ \letterfile
+             \ifdefined\covermode\ \textperiodcentered\ \covermode\fi},
+    color = color5, fontsize = 1.6cm, angle = 45}
+\else
+  \newcommand{\draftcolor}[1]{#1}
+\fi
+
+%==================================================
+% \ifempty{\field}{if empty}{if filled}
+%   The one test everything else is built on. A field counts as
+%   empty if it is defined as {} or not defined at all, so you can
+%   leave a line blank OR delete it from the form.
+%==================================================
+\newcommand{\ifempty}[3]{\ifdefvoid{#1}{#2}{#3}}
+
+%==================================================
+% Field printers
+%   Use these inside paragraphs instead of the raw fields. Each one
+%   prints its field (in color2 when drafting) or a sensible fallback
+%   when the field is empty, so a letter never says "at ."
+%==================================================
+% Position: "the Data Scientist position" / "the advertised position"
+\newcommand{\theposition}{\ifempty{\position}{advertised}{\draftcolor{\position}}}
+
+% Employer: the company if set, otherwise the university,
+% otherwise a neutral phrase. One paragraph serves both worlds.
+% \employerarticle adds "the" in sentences ("at the University of
+% Westacre") while the address block keeps the bare name.
+\newcommand{\theemployer}{%
+  \ifempty{\company}%
+    {\ifempty{\uni}{your organization}{\draftcolor{\maybearticle\uni}}}%
+    {\draftcolor{\maybearticle\company}}}
+\newcommand{\maybearticle}{\ifempty{\employerarticle}{}{\employerarticle\ }}
+
+% Short name for second mentions ("Westacre"); falls back to \theemployer
+\newcommand{\theshortname}{\ifempty{\shortname}{\theemployer}{\draftcolor{\shortname}}}
+
+%==================================================
+% Optional-phrase macros
+%   Each prints a whole phrase, leading space included, only when its
+%   field is filled. Write them straight after a word, no space:
+%     the \theposition\ position\maybeteam\ at \theemployer\maybejobref.
+%   Empty team + empty job ref  ->  "the Analyst position at Spook Street."
+%==================================================
+\newcommand{\maybeteam}{\ifempty{\team}{}{ on the \draftcolor{\team} team}}
+\newcommand{\maybedept}{\ifempty{\department}{}{ in the \draftcolor{\department}}}
+\newcommand{\maybeschool}{\ifempty{\school}{}{ in the \draftcolor{\school}}}
+\newcommand{\maybeproject}{\ifempty{\project}{}{ on the \draftcolor{\project} project}}
+\newcommand{\maybespecialization}{\ifempty{\specialization}{}{ with a focus on \draftcolor{\specialization}}}
+\newcommand{\maybejobref}{\ifempty{\jobref}{}{ (ref.\ \draftcolor{\jobref})}}
+\newcommand{\maybeappsentence}{\ifempty{\appsentence}{}{ \draftcolor{\appsentence}}}
+
+% Print a field (in draft color) only if it is filled.
+\newcommand{\printifset}[1]{\ifempty{#1}{}{\draftcolor{#1}}}
+
+%==================================================
+% \coverpara{individualizedX}{file}
+%   The paragraph override. If the form defines \individualizedX with
+%   text, that text is used; if it is empty, the generic paragraph
+%   modes/<mode>/<file>.tex is used instead.
+%==================================================
+\newcommand{\coverpara}[2]{%
+  \ifcsvoid{#1}%
+    {\modeinput{#2}}%
+    {\draftcolor{\csname #1\endcsname}}%
+  \par}
+
+%==================================================
+% "Prepared for" line under statement titles:
+%   Position | Department | Employer
+% Each part prints only if filled, so a fully generic copy (blank
+% form) gets no line at all.
+%==================================================
+\newcommand{\prepitem}[1]{%
+  \ifempty{#1}{}{\iffirstcontact\firstcontactfalse\else\contactsep\fi\mbox{\draftcolor{#1}}}}
+\newcommand{\preparedfor}{%
+  \begin{center}\vspace{-6pt}{\sffamily\small\color{color3}\firstcontacttrue
+    \prepitem{\position}\prepitem{\department}%
+    \ifempty{\company}{\prepitem{\uni}}{\prepitem{\company}}}\end{center}\vspace{-2pt}}

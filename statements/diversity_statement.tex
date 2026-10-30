@@ -1,0 +1,46 @@
+% ====================================================================
+%  Diversity statement
+% ====================================================================
+%  Written once and sent as is: the body does not change per job.
+%  It reads the application form for two things only:
+%    * the line under the title (position, department, employer)
+%    * \diversitydocname: the title the ad asks for
+%      (empty = "Diversity Statement"; e.g. "Statement of
+%      Contributions to Diversity, Equity and Inclusion")
+%  Whether it goes into the packet is \packetdiversity in the form.
+%
+%  make diversity APP=example-uni
+%  (In an editor: change the \providecommand default and use XeLaTeX.)
+% ====================================================================
+\documentclass[11pt]{article}
+
+\providecommand{\letterfile}{example-uni}
+
+\input{../shared/header.tex}
+\input{../applications/\letterfile}
+\input{../shared/macros.tex}
+
+\newcommand{\diversitytitle}{\ifempty{\diversitydocname}{Diversity Statement}{\draftcolor{\diversitydocname}}}
+
+\hypersetup{pdftitle={Diversity Statement, \applicantfirst\ \applicantlast}}
+
+\begin{document}
+\makeletterhead
+\doctitle{\diversitytitle}
+\preparedfor
+
+% --------------------------------------------------------------------
+% Replace the placeholder text in each section with your own. Each
+% section opens with example sentences, then lorem ipsum.
+% --------------------------------------------------------------------
+
+\section{Commitment}
+My approach to an inclusive workplace is simple: I am equally rude to everyone. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+\section{In Practice}
+Slough House brings together officers from every background, united mainly by having made one spectacular mistake. I make sure every voice in the room is heard, if only so I can tell it to be quiet. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\section{Going Forward}
+I will keep giving people a second chance, mostly because nobody else will. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.
+
+\end{document}

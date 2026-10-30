@@ -1,0 +1,51 @@
+% ====================================================================
+%  Teaching statement
+% ====================================================================
+%  Reads the same application form as the cover letter.
+%    \teachingdocname           the title the ad asks for
+%                               (empty = "Teaching Statement")
+%    \teachinginterestsparagraph replaces the generic "Courses I can
+%                               teach" paragraph for this application
+%
+%  make teaching APP=example-uni
+%  (In an editor: change the \providecommand default and use XeLaTeX.)
+% ====================================================================
+\documentclass[11pt]{article}
+
+\providecommand{\letterfile}{example-uni}
+
+\input{../shared/header.tex}
+\input{../applications/\letterfile}
+\input{../shared/macros.tex}
+
+\newcommand{\teachingtitle}{\ifempty{\teachingdocname}{Teaching Statement}{\draftcolor{\teachingdocname}}}
+
+\hypersetup{pdftitle={Teaching Statement, \applicantfirst\ \applicantlast}}
+
+\begin{document}
+\makeletterhead
+\doctitle{\teachingtitle}
+\preparedfor
+
+% --------------------------------------------------------------------
+% Replace the placeholder text in each section with your own. Each
+% section opens with example sentences, then lorem ipsum.
+% --------------------------------------------------------------------
+
+\section{Approach}
+I teach the way I run Slough House: low expectations, high standards, and no biscuits until the work is done. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+\section{In the Classroom}
+Students begin each unit with a file that is missing something important. Their job is to work out what, and why nobody noticed. I give feedback quickly and plainly; students describe it as the most honest feedback they have ever received, usually on their way out of the room. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.
+
+\section{Mentoring}
+I have supervised a rotating team of junior officers for many years, each sent to me after a career-ending mistake. Several now run operations of their own, and most of the others are still alive. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+\section{Courses I Can Teach}
+\ifempty{\teachinginterestsparagraph}{%
+I am prepared to teach introductory intelligence studies, Cold War history, surveillance and counter-surveillance, and research methods for incomplete records using R, Python and SQL. Curabitur pretium tincidunt lacus, nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.%
+}{%
+\draftcolor{\teachinginterestsparagraph}%
+}
+
+\end{document}

@@ -1,0 +1,72 @@
+% ====================================================================
+%  EXAMPLE FORM: faculty application (fictional university)
+%  Build everything:  make all APP=example-uni MODE=academia
+%  Proof:             make all APP=example-uni MODE=academia DRAFT=1
+%  Every field is explained in _blank_form.tex.
+% ====================================================================
+
+% 1. Employer & position
+\newcommand{\company}{}
+\newcommand{\uni}{University of Westacre}
+\newcommand{\shortname}{Westacre}
+\newcommand{\employerarticle}{the}
+\newcommand{\companyaddress}{Westacre, UK}
+\newcommand{\position}{Lecturer in Intelligence and Security Studies}
+
+% 2. Optional details (empty ones simply disappear)
+\newcommand{\team}{}
+\newcommand{\department}{Department of War and Security Studies}
+\newcommand{\school}{}
+\newcommand{\project}{}
+\newcommand{\specialization}{}
+\newcommand{\jobref}{WU-1121}
+
+% 3. Addressee & greeting (mode default: "Dear Members of the Search Committee,")
+\newcommand{\contactname}{}
+\newcommand{\contacttitle}{}
+\newcommand{\recruitmentoverride}{}
+\newcommand{\salutationoverride}{}
+\newcommand{\signoffoverride}{}
+\newcommand{\letterdate}{}
+
+% 4. One-line hook
+\newcommand{\appsentence}{The department's new archive of declassified Cold War files is the first collection I have seen that I did not help to classify.}
+
+% 5. Paragraph overrides: none, so all four paragraphs come from
+%    modes/academia/. \deptfocus switches one sentence of the fit paragraph.
+\newcommand{\individualizedintro}{}
+\newcommand{\individualizedskills}{}
+\newcommand{\individualizedfit}{}
+\newcommand{\individualizedconclusion}{}
+\newcommand{\deptfocus}{Cold War intelligence history}
+
+% 6. Research statement: a fourth Future Directions strand for this job
+\newcommand{\individualizedresearchexpansion}{\textbf{Item 4: the Westacre archive.} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.}
+
+% 7. Teaching statement: the ad asks for a "Teaching Philosophy" and named courses
+\newcommand{\teachingdocname}{Teaching Philosophy}
+\newcommand{\teachinginterestsparagraph}{At Westacre I could teach \textit{Introduction to Intelligence Studies} and \textit{The Cold War in Europe}, and I would like to develop a seminar, \textit{Tradecraft for Beginners}, in which students learn to spot a tail, write a usable report and make a decent cup of tea.}
+
+% 7b. Diversity and service statements: sent as written; default title
+\newcommand{\diversitydocname}{}
+
+% 8. Writing samples
+\newcommand{\writingsampleintro}{Two samples are included: a peer-reviewed article and a dissertation chapter.}
+\newcommand{\sampleonefile}{../sample_files/sample_article.pdf}
+\newcommand{\sampleonecitation}{Lamb, J. (2019). Filing cabinets as load-bearing structures: Paperwork and plausible deniability. \textit{Journal of Example Tradecraft}, 4(2), 1--17.}
+\newcommand{\sampletwofile}{../sample_files/sample_chapter.pdf}
+\newcommand{\sampletwocitation}{Lamb, J. (2015). Chapter 3: Who talked? In \textit{Leaks, Lies and the Berlin Wall} (Doctoral dissertation, University of Slough).}
+\newcommand{\samplethreefile}{}
+\newcommand{\samplethreecitation}{}
+
+% 9. Documents for this application (make all builds these + packet): everything but the resume
+\newcommand{\packetletter}{yes}
+\newcommand{\packetresume}{no}
+\newcommand{\packetcv}{yes}
+\newcommand{\packetresearch}{yes}
+\newcommand{\packetteaching}{yes}
+\newcommand{\packetdiversity}{yes}
+\newcommand{\packetservice}{yes}
+\newcommand{\packetsamples}{yes}
+\newcommand{\resumefile}{../sample_files/sample_resume.pdf}
+\newcommand{\cvfile}{../sample_files/sample_cv.pdf}

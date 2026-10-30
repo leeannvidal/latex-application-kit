@@ -1,0 +1,172 @@
+% header.tex
+% ==================================================
+% Packages, colors, macros for the letterhead
+% Every document in the kit loads this file first, so a change
+% here (margins, font, colors) shows up in all of them at once.
+% ==================================================
+
+%==================================================
+% Page layout & paragraphing
+%==================================================
+\usepackage[letterpaper, margin=0.9in]{geometry}
+% \usepackage[a4paper, margin=2.2cm]{geometry}   % A4 instead (UK / EU / most of the world)
+\usepackage[skip=8pt plus1pt, indent=0pt]{parskip} % space between paragraphs, no indent
+
+% Line spacing controls
+\usepackage{setspace}
+\setstretch{1.12}                % 1 = tight, 1.15 = airy, 1.5 = very open
+\pagestyle{empty}                % no page numbers (statements turn them back on)
+
+%==================================================
+% Engine & fonts
+%   Compile with XeLaTeX (the Makefile does this for you)
+%==================================================
+\usepackage{fontspec}
+% Libertinus ships with TeX Live and MiKTeX. If it is missing, LaTeX
+% falls back to Latin Modern so the build still works.
+% To use your own font, replace the two blocks below with e.g.
+%   \setmainfont{EB Garamond}   or   \setsansfont{Source Sans 3}
+\IfFileExists{LibertinusSerif-Regular.otf}{%
+  \setmainfont{LibertinusSerif}[
+    Extension      = .otf,
+    UprightFont    = *-Regular,
+    BoldFont       = *-Bold,
+    ItalicFont     = *-Italic,
+    BoldItalicFont = *-BoldItalic]
+}{}
+\IfFileExists{LibertinusSans-Regular.otf}{%
+  \setsansfont{LibertinusSans}[
+    Extension      = .otf,
+    UprightFont    = *-Regular,
+    BoldFont       = *-Bold,
+    ItalicFont     = *-Italic]
+}{}
+
+%==================================================
+% Language
+%==================================================
+\usepackage[english]{babel}
+
+%==================================================
+% Lists, logic, graphics
+%==================================================
+\usepackage{enumitem}            % tight lists, custom labels
+\setlist{itemsep=2pt, topsep=4pt}
+\usepackage{etoolbox}            % \ifdefvoid and friends (used by macros.tex)
+\usepackage{ifthen}              % \ifthenelse (used by the packet switches)
+\usepackage{graphicx}            % signature image
+\usepackage{pdfpages}            % writing samples and the combined packet
+\usepackage{needspace}           % keeps the sign-off with the last paragraph
+
+%==================================================
+% Colors & styling
+%   One palette for every document. Change a color here and the
+%   letter, statements, samples and packet all follow.
+%
+%   What each color does:
+%     color1  your name, section headings, document titles
+%     color2  accent: the rule under your name, links, and the
+%             highlighted (tailored) text in draft mode
+%     color3  secondary text: contact line, dates, "Prepared for" line
+%     color4  thin rules under section headings
+%     color5  the DRAFT watermark (keep it pale)
+%
+%   How to change them:
+%     \definecolor{color1}{HTML}{1B2A4A}       HEX code, no #
+%     \definecolor{color1}{RGB}{27,42,74}      0-255 values
+%     \definecolor{color1}{rgb}{0.11,0.16,0.29} 0-1 values
+%   Good places to find palettes: coolors.co, colorhunt.co, or the
+%   brand colors of your university or company. Check that color1
+%   and color3 stay dark enough to read when printed in grayscale.
+%==================================================
+\usepackage{xcolor}
+
+% --- Default palette: Navy & Burnt Orange -------------------------
+\definecolor{color1}{HTML}{1B2A4A}   % deep navy
+\definecolor{color2}{HTML}{C8562B}   % burnt orange
+\definecolor{color3}{HTML}{55606E}   % slate gray
+\definecolor{color4}{HTML}{C9D1DC}   % pale steel (rules)
+\definecolor{color5}{HTML}{F1E1D4}   % pale apricot (watermark)
+
+% --- Alternative: Crimson & Charcoal ------------------------------
+% \definecolor{color1}{HTML}{2B2D33}   % charcoal
+% \definecolor{color2}{HTML}{A4161A}   % crimson
+% \definecolor{color3}{HTML}{62656C}   % warm gray
+% \definecolor{color4}{HTML}{D9D9DD}   % light gray (rules)
+% \definecolor{color5}{HTML}{F3DCDC}   % blush (watermark)
+
+% --- Alternative: Plum & Gold -------------------------------------
+% \definecolor{color1}{HTML}{3E1F47}   % plum
+% \definecolor{color2}{HTML}{B8891A}   % antique gold
+% \definecolor{color3}{HTML}{6B6070}   % mauve gray
+% \definecolor{color4}{HTML}{DCD3E0}   % lilac gray (rules)
+% \definecolor{color5}{HTML}{F2EAD3}   % cream (watermark)
+
+%==================================================
+% Section headings
+%==================================================
+\usepackage{titlesec}
+\titleformat{\section}
+  {\sffamily\large\bfseries\color{color1}}      % heading style
+  {}{0pt}{}
+  [\vspace{1pt}{\color{color4}\titlerule[0.6pt]}] % thin rule underneath
+\titlespacing*{\section}{0pt}{12pt}{4pt}
+\titleformat{\subsection}
+  {\sffamily\normalsize\bfseries\color{color1}}{}{0pt}{}
+\titlespacing*{\subsection}{0pt}{8pt}{2pt}
+
+%==================================================
+% Your details (name, email, links) live in applicant.tex
+%==================================================
+\input{../shared/applicant.tex}
+
+%==================================================
+% Links & PDF metadata
+%==================================================
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks = true,
+  urlcolor   = color2,
+  linkcolor  = color1,
+  pdfauthor  = {\applicantfirst\ \applicantlast},
+  pdfcreator = {XeLaTeX},
+}
+
+%==================================================
+% Letterhead
+%   \makeletterhead prints your name, an accent rule and one line
+%   of contact details. Any detail left empty in applicant.tex is
+%   skipped, along with its separator.
+%==================================================
+\newif\iffirstcontact
+\newcommand{\contactsep}{\quad{\color{color4}|}\quad}
+\newcommand{\contactitem}[1]{%
+  \ifdefvoid{#1}{}{\iffirstcontact\firstcontactfalse\else\contactsep\fi#1}}
+\newcommand{\contactlink}[2]{% #1 = field, #2 = url prefix
+  \ifdefvoid{#1}{}{\iffirstcontact\firstcontactfalse\else\contactsep\fi
+    \href{#2#1}{\color{color3}#1}}}
+
+\newcommand{\makeletterhead}{%
+  \begingroup
+  \setstretch{1}\noindent
+  {\sffamily\fontsize{24}{28}\selectfont\color{color1}%
+    \applicantfirst\ \textbf{\applicantlast}%
+    \ifdefvoid{\applicantcredentials}{}{%
+      {\fontsize{14}{16}\selectfont\color{color3}\ \applicantcredentials}}}\par
+  \vspace{4pt}\noindent{\color{color2}\rule{\linewidth}{1.4pt}}\par
+  \vspace{2pt}\noindent
+  {\sffamily\small\color{color3}\firstcontacttrue
+    \contactitem{\applicantlocation}%
+    \contactlink{\applicantemail}{mailto:}%
+    \contactitem{\applicantphone}%
+    \contactlink{\applicantwebsite}{https://}%
+    \contactlink{\applicantlinkedin}{https://}%
+    \contactlink{\applicantgithub}{https://}}\par
+  \endgroup
+  \vspace{14pt}}
+
+% Document title for statements and samples
+\newcommand{\doctitle}[1]{%
+  \begin{center}
+    {\sffamily\LARGE\bfseries\color{color1}#1}
+  \end{center}\vspace{-4pt}}

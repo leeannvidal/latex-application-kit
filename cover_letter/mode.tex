@@ -1,0 +1,15 @@
+% mode.tex
+% ==================================================
+% Turns \covermode into a folder under modes/ and defines
+%   \modeinput{file}  ->  \input{modes/<mode>/file}
+%
+% Adding a mode of your own: copy a folder under modes/ (e.g. tech ->
+% nonprofit), rewrite its five files, and build with MODE=nonprofit.
+% Nothing else needs to change.
+% ==================================================
+\IfFileExists{modes/\covermode/intro.tex}{}{%
+  \errmessage{Unknown cover-letter mode "\covermode".
+    Use academia, postdoc, tech, consulting or intorg,
+    or create the folder modes/\covermode/}}
+
+\newcommand{\modeinput}[1]{\input{modes/\covermode/#1}}

@@ -1,0 +1,21 @@
+% Builds the README image: the same letter from the blank form
+% (generic) and from example-tech in draft mode (tailored text in color2).
+% Run with: make examples
+\documentclass{article}
+\input{../shared/header.tex}
+\geometry{paperwidth=17.6in, paperheight=12.4in, margin=0.3in}
+\renewcommand{\familydefault}{\sfdefault}
+\pagestyle{empty}
+\begin{document}
+\centering
+\begin{minipage}[t]{0.49\linewidth}\centering
+  {\Huge\bfseries\color{color1}Generic}\\[2pt]
+  {\Large\color{color3}blank form, \texttt{MODE=tech}}\\[8pt]
+  \fcolorbox{color4}{white}{\includegraphics[width=0.94\linewidth]{generic_letter.pdf}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\linewidth}\centering
+  {\Huge\bfseries\color{color1}Tailored}\\[2pt]
+  {\Large\color{color3}\texttt{example-tech} form, \texttt{DRAFT=1} highlights what changed}\\[8pt]
+  \fcolorbox{color4}{white}{\includegraphics[width=0.94\linewidth]{tailored_letter_draft.pdf}}
+\end{minipage}
+\end{document}

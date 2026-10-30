@@ -1,0 +1,155 @@
+% ====================================================================
+%  APPLICATION FORM: one per job
+% ====================================================================
+%  This is the ONLY file you edit for a new application. The cover
+%  letter, research statement, teaching statement, writing samples and
+%  combined packet all read it, so the employer's name, the position
+%  and any tailored paragraph are typed once and appear everywhere.
+%
+%  How to use it:
+%    1. make new APP=spook-street-insider-risk   (copies this file)
+%    2. Fill in what you know. Leave anything else empty: {}
+%       Empty fields disappear from the documents without leaving
+%       stray words behind.
+%    3. make all APP=spook-street-insider-risk MODE=tech
+%
+%  Built with this blank form, every document comes out fully generic
+%  ("the advertised position at your organization"). That is useful as
+%  a quick check of the generic paragraphs on their own.
+% ====================================================================
+
+
+% ====================================================
+% 1. Employer & position
+%    Fill in \company OR \uni (or both). When \company is set it is
+%    used as the employer; otherwise \uni is.
+% ====================================================
+\newcommand{\company}{}          % e.g. Spook Street Analytics
+\newcommand{\uni}{}              % e.g. University of Westacre
+\newcommand{\shortname}{}        % short form for second mentions, e.g. Westacre. Empty: the full name is reused.
+\newcommand{\employerarticle}{}  % "the" if the name needs it mid-sentence ("at the University of Westacre"). Usually empty for companies.
+\newcommand{\companyaddress}{}   % one line under the employer in the address block, e.g. Chicago, IL
+\newcommand{\position}{}         % e.g. Senior Data Scientist  -> "the Senior Data Scientist position"
+
+
+% ====================================================
+% 2. Optional details
+%    Each one adds a short phrase only when filled:
+%      \team            -> " on the Insider Risk team"
+%      \department      -> " in the Department of Geography"   (type the full name)
+%      \school          -> " in the School of Public Policy"
+%      \project         -> " on the Cold Files project"
+%      \specialization  -> " with a focus on counter-intelligence"
+%      \jobref          -> " (ref. JR-2041)"
+% ====================================================
+\newcommand{\team}{}
+\newcommand{\department}{}
+\newcommand{\school}{}
+\newcommand{\project}{}
+\newcommand{\specialization}{}
+\newcommand{\jobref}{}
+
+
+% ====================================================
+% 3. Addressee & greeting
+%    By default each mode greets a group ("Dear Hiring Team,",
+%    "Dear Members of the Search Committee,"). Use these to change it.
+% ====================================================
+\newcommand{\contactname}{}          % surname only, e.g. Taverner  -> "Dear Ms. Taverner,"
+\newcommand{\contacttitle}{}         % e.g. Dr., Professor, Ms.   (used with \contactname)
+\newcommand{\recruitmentoverride}{}  % replaces the mode's group, e.g. Talent Acquisition Team
+\newcommand{\salutationoverride}{}   % replaces the whole greeting, comma included, e.g. To whom it may concern,
+\newcommand{\signoffoverride}{}      % replaces "Sincerely,", e.g. Kind regards,
+\newcommand{\letterdate}{}           % empty = today's date
+
+
+% ====================================================
+% 4. One-line hook
+%    A single sentence tailored to this job. It is added to the end
+%    of the opening paragraph. Empty = no sentence.
+% ====================================================
+\newcommand{\appsentence}{}
+
+
+% ====================================================
+% 5. Paragraph overrides: cover letter
+%    The letter has four paragraph slots. Leave a slot empty to use
+%    the generic paragraph of the chosen mode
+%    (cover_letter/modes/<mode>/<slot>.tex), or write your own text
+%    to replace that paragraph for this application only.
+% ====================================================
+\newcommand{\individualizedintro}{}       % empty -> modes/<mode>/intro.tex
+\newcommand{\individualizedskills}{}      % empty -> modes/<mode>/skills.tex
+\newcommand{\individualizedfit}{}         % empty -> modes/<mode>/fit.tex
+\newcommand{\individualizedconclusion}{}  % empty -> modes/<mode>/conclusion.tex
+
+% Academic modes only: one research or teaching area of the department
+% you want to connect to. The academia fit paragraph switches to a
+% sentence about it when this is filled.
+\newcommand{\deptfocus}{}                 % e.g. Cold War intelligence history
+
+
+% ====================================================
+% 6. Research statement (academic applications)
+% ====================================================
+% An extra strand added to "Future Directions". When filled, the
+% statement says "Four strands" instead of "Three" and adds it as
+% the fourth item.
+\newcommand{\individualizedresearchexpansion}{}
+
+
+% ====================================================
+% 7. Teaching statement (academic applications)
+% ====================================================
+\newcommand{\teachingdocname}{}           % the title the ad asks for. Empty = Teaching Statement.
+                                          % e.g. Teaching Philosophy, Statement of Teaching and Mentoring
+\newcommand{\teachinginterestsparagraph}{} % replaces the generic "Courses I can teach" paragraph,
+                                          % e.g. when the ad asks for specific courses
+
+
+% ====================================================
+% 7b. Diversity and service statements (academic applications)
+%     Written once and sent as is: their text does not change per
+%     job. Only the line under the title follows this form, plus the
+%     diversity statement's title if the ad uses a different name.
+% ====================================================
+\newcommand{\diversitydocname}{}          % empty = Diversity Statement. e.g. Statement of
+                                          % Contributions to Diversity, Equity and Inclusion
+
+
+% ====================================================
+% 8. Writing samples (up to three)
+%    File paths are relative to a document folder, so samples kept
+%    in sample_files/ are written ../sample_files/<name>.pdf
+%    Leave a file empty to skip that sample.
+% ====================================================
+\newcommand{\writingsampleintro}{}        % optional sentence under the contents
+\newcommand{\sampleonefile}{}
+\newcommand{\sampleonecitation}{}
+\newcommand{\sampletwofile}{}
+\newcommand{\sampletwocitation}{}
+\newcommand{\samplethreefile}{}
+\newcommand{\samplethreecitation}{}
+
+
+% ====================================================
+% 9. Documents for this application
+%    yes/no for each document the job asks for. `make all` builds
+%    every document marked yes and merges them, in this order and
+%    with PDF bookmarks, into one Application_Packet.pdf for portals
+%    that take a single upload.
+% ====================================================
+\newcommand{\packetletter}{yes}
+\newcommand{\packetresume}{no}        % industry jobs usually ask for a resume
+\newcommand{\packetcv}{no}            % academic jobs usually ask for a CV
+\newcommand{\packetresearch}{no}
+\newcommand{\packetteaching}{no}
+\newcommand{\packetdiversity}{no}
+\newcommand{\packetservice}{no}
+\newcommand{\packetsamples}{no}
+
+% Your resume and CV are made outside the kit, so give their paths here.
+% Paths are relative to a document folder (../ = the kit's top folder).
+% A path is only used when its switch above is yes.
+\newcommand{\resumefile}{../sample_files/sample_resume.pdf}  % your resume as a PDF
+\newcommand{\cvfile}{../sample_files/sample_cv.pdf}          % your CV as a PDF

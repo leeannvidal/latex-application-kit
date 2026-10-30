@@ -1,0 +1,56 @@
+% ====================================================================
+%  Writing samples
+% ====================================================================
+%  One PDF with a cover page, a clickable contents list and up to three
+%  samples, all chosen in the application form (section 8):
+%    \sampleonefile / \sampleonecitation, \sampletwo..., \samplethree...
+%  An empty file name skips that sample, so the same source serves an
+%  application that wants one sample and another that wants three.
+%
+%  make samples APP=example-uni
+%  (In an editor: change the \providecommand default and use XeLaTeX.)
+% ====================================================================
+\documentclass[11pt]{article}
+
+\providecommand{\letterfile}{example-uni}
+
+\input{../shared/header.tex}
+\input{../applications/\letterfile}
+\input{../shared/macros.tex}
+
+\hypersetup{pdftitle={Writing Samples, \applicantfirst\ \applicantlast}}
+
+% Contents entries: regular weight, hanging indent so long citations
+% wrap neatly, page number in color3
+\usepackage{titletoc}
+\titlecontents{section}[1.5em]{\vspace{8pt}}{}{\hspace*{-1.5em}}
+  {\hfill{\color{color3}\contentspage}}
+\renewcommand{\contentsname}{Contents}
+
+% \addsample{file}{citation}: adds one sample, with a contents entry
+% (and PDF bookmark) on its first page. Does nothing when the file
+% field is empty.
+\newcounter{samplepage}
+\newcommand{\addsample}[2]{%
+  \ifempty{#1}{}{%
+    \setcounter{samplepage}{0}%
+    \includepdf[pages=-, scale=0.95,
+      pagecommand={\thispagestyle{plain}%
+        \ifnum\value{samplepage}=0 \phantomsection\addcontentsline{toc}{section}{#2}\fi
+        \stepcounter{samplepage}}]{#1}}}
+
+\begin{document}
+\makeletterhead
+\doctitle{Writing Samples}
+\preparedfor
+\vspace{10pt}
+
+\ifempty{\writingsampleintro}{}{\noindent\draftcolor{\writingsampleintro}\par\vspace{6pt}}
+
+\tableofcontents
+\clearpage
+
+\addsample{\sampleonefile}{\sampleonecitation}
+\addsample{\sampletwofile}{\sampletwocitation}
+\addsample{\samplethreefile}{\samplethreecitation}
+\end{document}

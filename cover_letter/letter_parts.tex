@@ -1,0 +1,54 @@
+% letter_parts.tex
+% ==================================================
+% The fixed parts of the letter: date, address block, greeting and
+% sign-off. Each reads the application form, so changing who the
+% letter is addressed to never means editing this file.
+% ==================================================
+
+% --- Date ---------------------------------------------------------
+\newcommand{\letterdateline}{%
+  \noindent{\color{color3}\ifempty{\letterdate}{\today}{\draftcolor{\letterdate}}}\par}
+
+% --- Who the letter is addressed to --------------------------------
+% Priority: named contact > \recruitmentoverride > the mode's default
+\newcommand{\recruitmentgroup}{%
+  \ifempty{\recruitmentoverride}{\recruitment}{\draftcolor{\recruitmentoverride}}}
+\newcommand{\addresseename}{%
+  \ifempty{\contactname}%
+    {\recruitmentgroup}%
+    {\draftcolor{\ifempty{\contacttitle}{}{\contacttitle~}\contactname}}}
+
+% --- Address block: each line prints only if its field is filled ----
+\newcommand{\addressline}[1]{\ifempty{#1}{}{\noindent\draftcolor{#1}\par}}
+\newcommand{\addresseeblock}{%
+  \begingroup\setlength{\parskip}{0pt}\setstretch{1.05}%
+  \noindent\addresseename\par
+  \addressline{\department}%
+  \addressline{\school}%
+  \ifempty{\company}{\addressline{\uni}}{\addressline{\company}}%
+  \addressline{\companyaddress}%
+  \endgroup}
+
+% --- Greeting -------------------------------------------------------
+\newcommand{\greeting}{%
+  \noindent\ifempty{\salutationoverride}%
+    {Dear \addresseename,}%
+    {\draftcolor{\salutationoverride}}\par}
+
+% --- Sign-off -------------------------------------------------------
+% Never leaves "Sincerely," and the name alone on page 2: the page may
+% stretch by two lines, and the sign-off is glued to the last
+% paragraph, so if the letter truly runs over, the end of the
+% conclusion moves with it. Don't put \newpage or \vspace before it.
+\newcommand{\signoffword}{%
+  \ifempty{\signoffoverride}{Sincerely,}{\draftcolor{\signoffoverride}}}
+\newcommand{\signoff}{%
+  \enlargethispage{2\baselineskip}%
+  \nopagebreak[4]%
+  \noindent\begin{minipage}{\linewidth}
+    \vspace{2pt}\signoffword\par\vspace{2pt}
+    \ifempty{\signaturefile}%
+      {\vspace{1.6em}}%
+      {\includegraphics[height=3.2em]{\signaturefile}\par}
+    \applicantfirst\ \applicantlast
+  \end{minipage}}

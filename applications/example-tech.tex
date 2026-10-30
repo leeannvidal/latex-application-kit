@@ -1,0 +1,68 @@
+% ====================================================================
+%  EXAMPLE FORM: industry application (fictional company)
+%  Build:  make letter APP=example-tech MODE=tech
+%  Proof:  make letter APP=example-tech MODE=tech DRAFT=1
+%  Every field is explained in _blank_form.tex.
+% ====================================================================
+
+% 1. Employer & position
+\newcommand{\company}{Spook Street Analytics}
+\newcommand{\uni}{}
+\newcommand{\shortname}{Spook Street}
+\newcommand{\employerarticle}{}
+\newcommand{\companyaddress}{London, UK}
+\newcommand{\position}{Head of Insider Risk Analytics}
+
+% 2. Optional details (empty ones simply disappear)
+\newcommand{\team}{Insider Risk}
+\newcommand{\department}{}
+\newcommand{\school}{}
+\newcommand{\project}{}
+\newcommand{\specialization}{}
+\newcommand{\jobref}{SSA-007}
+
+% 3. Addressee & greeting (mode default: "Dear Hiring Team,")
+\newcommand{\contactname}{}
+\newcommand{\contacttitle}{}
+\newcommand{\recruitmentoverride}{Insider Risk Hiring Panel}
+\newcommand{\salutationoverride}{}
+\newcommand{\signoffoverride}{Regards,}
+\newcommand{\letterdate}{}
+
+% 4. One-line hook
+\newcommand{\appsentence}{Spook Street's work on catching leaks before they reach the press is something I have done for most of my career, usually after the press had already got there.}
+
+% 5. Paragraph overrides: only the fit paragraph is tailored here;
+%    intro, skills and conclusion come from modes/tech/.
+\newcommand{\individualizedintro}{}
+\newcommand{\individualizedskills}{}
+\newcommand{\individualizedfit}{Your posting asks for someone who can find the insider before the insider finds the exit. That is most of what I do. At Slough House I traced a leak through three years of building access logs using SQL and a cold cup of tea, then wrote a two-page summary that senior management actually read. I would bring the same habits to the Insider Risk team: trust the logs, doubt the people, and write it all down clearly.}
+\newcommand{\individualizedconclusion}{}
+\newcommand{\deptfocus}{}
+
+% 6-7b. Research, teaching, diversity and service statements: not used for this job
+\newcommand{\individualizedresearchexpansion}{}
+\newcommand{\teachingdocname}{}
+\newcommand{\teachinginterestsparagraph}{}
+\newcommand{\diversitydocname}{}
+
+% 8. Writing samples: not used for this job
+\newcommand{\writingsampleintro}{}
+\newcommand{\sampleonefile}{}
+\newcommand{\sampleonecitation}{}
+\newcommand{\sampletwofile}{}
+\newcommand{\sampletwocitation}{}
+\newcommand{\samplethreefile}{}
+\newcommand{\samplethreecitation}{}
+
+% 9. Documents for this application (make all builds these + packet): letter + resume
+\newcommand{\packetletter}{yes}
+\newcommand{\packetresume}{yes}
+\newcommand{\packetcv}{no}
+\newcommand{\packetresearch}{no}
+\newcommand{\packetteaching}{no}
+\newcommand{\packetdiversity}{no}
+\newcommand{\packetservice}{no}
+\newcommand{\packetsamples}{no}
+\newcommand{\resumefile}{../sample_files/sample_resume.pdf}
+\newcommand{\cvfile}{../sample_files/sample_cv.pdf}

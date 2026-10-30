@@ -1,0 +1,45 @@
+% ====================================================================
+%  Cover letter
+% ====================================================================
+%  Two axes decide what this letter says:
+%    MODE  (\covermode)  which generic paragraphs:  modes/<mode>/
+%    APP   (\letterfile) which application form:   ../applications/<app>.tex
+%
+%  The Makefile sets both for you:
+%    make letter APP=example-tech MODE=tech
+%  Building in an editor (Overleaf, TeXShop, VS Code) instead? Change
+%  the two \providecommand defaults below and compile with XeLaTeX.
+% ====================================================================
+\documentclass[11pt]{article}
+
+\providecommand{\letterfile}{example-tech}   % form under applications/, without .tex
+\providecommand{\covermode}{tech}            % academia | postdoc | tech | consulting | intorg
+
+\input{../shared/header.tex}               % layout, fonts, colors, letterhead
+\input{../applications/\letterfile}        % the application form
+\input{../shared/macros.tex}               % field printers, \coverpara, draft mode
+\input{mode.tex}                           % checks the mode, defines \modeinput
+\modeinput{settings}                       % the mode's default addressee
+\input{letter_parts.tex}                   % address block, greeting, sign-off
+
+\hypersetup{pdftitle={Cover Letter, \applicantfirst\ \applicantlast}}
+
+\begin{document}
+\makeletterhead
+
+\letterdateline
+
+\addresseeblock
+
+\greeting
+
+\coverpara{individualizedintro}{intro}
+
+\coverpara{individualizedskills}{skills}
+
+\coverpara{individualizedfit}{fit}
+
+\coverpara{individualizedconclusion}{conclusion}
+
+\signoff
+\end{document}

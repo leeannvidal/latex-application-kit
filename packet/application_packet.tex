@@ -1,0 +1,43 @@
+% ====================================================================
+%  Combined application packet
+% ====================================================================
+%  Some portals accept a single upload. This merges the documents
+%  already built for an application into one PDF, in a fixed order,
+%  with a PDF bookmark for each. Which documents go in is set by the
+%  yes/no switches in section 9 of the application form.
+%
+%  make packet APP=example-uni MODE=academia
+%  (The Makefile builds the documents first, then this file.)
+% ====================================================================
+\documentclass[11pt]{article}
+
+\providecommand{\letterfile}{example-uni}
+\providecommand{\fileprefix}{}              % e.g. Lamb_ (set in the Makefile)
+
+\input{../shared/header.tex}
+\input{../applications/\letterfile}
+\input{../shared/macros.tex}
+
+\hypersetup{pdftitle={Application, \applicantfirst\ \applicantlast}, bookmarksopen=true}
+
+% Where the built PDFs for this application live
+\newcommand{\builtpdf}[1]{../output/\letterfile/\fileprefix#1.pdf}
+
+% \addtopacket{switch}{pdf file}{bookmark title}{label}
+\newcommand{\addtopacket}[4]{%
+  \ifthenelse{\equal{#1}{yes}}{%
+    \IfFileExists{#2}%
+      {\includepdf[pages=-, addtotoc={1, section, 1, {#3}, #4}]{#2}}%
+      {\errmessage{Packet: #2 not found. Build it first, or set its switch to no}}%
+  }{}}
+
+\begin{document}
+\addtopacket{\packetletter}{\builtpdf{Cover_Letter}}{Cover Letter}{letter}
+\addtopacket{\packetresume}{\resumefile}{R\'esum\'e}{resume}
+\addtopacket{\packetcv}{\cvfile}{Curriculum Vitae}{cv}
+\addtopacket{\packetresearch}{\builtpdf{Research_Statement}}{Research Statement}{research}
+\addtopacket{\packetteaching}{\builtpdf{Teaching_Statement}}{Teaching Statement}{teaching}
+\addtopacket{\packetdiversity}{\builtpdf{Diversity_Statement}}{Diversity Statement}{diversity}
+\addtopacket{\packetservice}{\builtpdf{Service_Statement}}{Service Statement}{service}
+\addtopacket{\packetsamples}{\builtpdf{Writing_Samples}}{Writing Samples}{samples}
+\end{document}
